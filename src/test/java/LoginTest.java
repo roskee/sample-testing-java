@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.support.ui.Select;
 
 public class LoginTest {
     WebDriver driver;
@@ -49,6 +50,22 @@ public class LoginTest {
 
         WebElement backPackPrice = driver.findElement(By.className("inventory_item_price"));
         Assert.assertEquals("$29.99",backPackPrice.getText());
+    }
+
+    @Test
+    public void checkSorting() {
+        login();
+        WebElement sortElement = driver.findElement(By.className("product_sort_container"));
+        Select sortSelection = new Select(sortElement);
+
+        WebElement firstItem = driver.findElements(By.className("inventory_list")).get(0);
+        WebElement firstItemName = firstItem.findElement(By.className("inventory_item_name"));
+        Assert.assertEquals("Sauce Labs Backpack", firstItemName.getText());
+
+        sortSelection.selectByIndex(2);
+        firstItem = driver.findElements(By.className("inventory_list")).get(0);
+        firstItemName = firstItem.findElement(By.className("inventory_item_name"));
+        Assert.assertEquals("Test.allTheThings() T-Shirt (Red)", firstItemName.getText());
     }
 
     @After

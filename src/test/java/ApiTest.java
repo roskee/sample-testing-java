@@ -24,7 +24,7 @@ public class ApiTest {
     public void testGetManyUsers() {
         given()
                 .when()
-                .get("https://reqres.in/api/users?page=1")
+                .get("https://reqres.in/api/users")
                 .then()
                 .statusCode(200)
                 .body("page", equalTo(1))
