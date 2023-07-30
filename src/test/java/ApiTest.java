@@ -1,3 +1,4 @@
+import io.restassured.http.ContentType;
 import org.junit.Test;
 
 import static io.restassured.RestAssured.*;
@@ -30,5 +31,20 @@ public class ApiTest {
                 .body("per_page", equalTo(6))
                 .body("total", equalTo(12))
                 .body("data", hasSize(6));
+    }
+
+    @Test
+    public void testCreateUser() {
+        String body = "{\"name\":\"John\",\"job\":\"Engineer\"}";
+        given()
+                .contentType(ContentType.JSON)
+                .body(body)
+                .when()
+                .post("https://reqres.in/api/users")
+                .then()
+                .statusCode(201)
+                .body("name", equalTo("John"))
+                .body("job", equalTo("Engineer"))
+                .body("", hasKey("id"));
     }
 }
