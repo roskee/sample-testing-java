@@ -62,7 +62,7 @@ public class LoginTest {
         WebElement firstItemName = firstItem.findElement(By.className("inventory_item_name"));
         Assert.assertEquals("Sauce Labs Backpack", firstItemName.getText());
 
-        sortSelection.selectByIndex(2);
+        sortSelection.selectByIndex(1);
         firstItem = driver.findElements(By.className("inventory_list")).get(0);
         firstItemName = firstItem.findElement(By.className("inventory_item_name"));
         Assert.assertEquals("Test.allTheThings() T-Shirt (Red)", firstItemName.getText());
