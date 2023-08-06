@@ -30,7 +30,7 @@ public class LoginTest {
         Assert.assertEquals("https://www.saucedemo.com/inventory.html", driver.getCurrentUrl());
     }
     @Test
-    public void cartCheckout() {
+        public void cartCheckout() {
         login();
 
         WebElement addToCartButton = driver.findElement(By.id("add-to-cart-sauce-labs-backpack"));
@@ -66,6 +66,26 @@ public class LoginTest {
         firstItem = driver.findElements(By.className("inventory_list")).get(0);
         firstItemName = firstItem.findElement(By.className("inventory_item_name"));
         Assert.assertEquals("Test.allTheThings() T-Shirt (Red)", firstItemName.getText());
+    }
+
+    @Test
+    public void loginFailWithInvalidUsername() {
+        // find username field
+        WebElement userNameField = driver.findElement(By.id("user-name"));
+        // type 'invalid-username' into username field
+        userNameField.sendKeys("invalid-username");
+        // find password field
+        WebElement passwordField = driver.findElement(By.id("password"));
+        // type 'secret-sauce' into password field
+        passwordField.sendKeys("secret-sauce");
+        // find login button
+        WebElement loginButton = driver.findElement(By.id("login-button"));
+        // click login button
+        loginButton.click();
+        // find error field
+        WebElement errorField = driver.findElement(By.xpath("//h3[@data-test='error']"));
+        // check if the error is equal to 'Epic sadface: Username and password do not match any user in this service'
+        Assert.assertEquals("Epic sadface: Username and password do not match any user in this service", errorField.getText());
     }
 
     @After

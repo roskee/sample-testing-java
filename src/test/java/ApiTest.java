@@ -47,4 +47,18 @@ public class ApiTest {
                 .body("job", equalTo("Engineer"))
                 .body("", hasKey("id"));
     }
+
+    @Test
+    public void patchUser() {
+        String body = "{\"first_name\":\"kira\"}";
+        given()
+                .contentType(ContentType.JSON)
+                .body(body)
+                .when()
+                .patch("https://reqres.in/api/users/1")
+                .then()
+                .statusCode(200)
+                .body("first_name",equalTo("kira"))
+                .body("", hasKey("updatedAt"));
+    }
 }
