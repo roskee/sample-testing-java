@@ -1,0 +1,24 @@
+on: [push]
+
+jobs:
+  crone:
+    name: Testing
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: echo "I am cloning"
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "I am testing"
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "I am building"
+  deploy:
+    name: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "I am deploying"
