@@ -29,11 +29,10 @@ jobs:
         cache: maven
     - uses: logikal-io/run-logikal-playbook@v1
       with:
-         roles: chromedriver
-         vars: '{"chrome_package_version": "114.0.5735.90"}'
-    - uses: nanasess/setup-chromedriver@v2
-      with:
-         chromedriver-version: '114.0.5735.90'
+        roles: chrome, chromedriver
+    # - uses: nanasess/setup-chromedriver@v2
+    #   with:
+    #      chromedriver-version: '114.0.5735.90'
     - name: Build with Maven
       run: mvn test
 
