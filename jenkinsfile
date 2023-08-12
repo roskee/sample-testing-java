@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('clone project') {
+            steps {
+                git url: 'https://github.com/roskee/sample-testing-java.git',
+                    branch: 'main'
+            }
+        }
+        stage('test') {
+            steps {
+                bat 'dir'
+                // sh 'ls'
+                echo 'I am testing'
+            }
+        }
+        stage('build') {
+            steps {
+                echo 'I am building'
+            }
+        }
+        stage('deploy') {
+            steps {
+                echo 'I am deploying'
+            }
+        }
+    }
+}
