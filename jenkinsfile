@@ -1,28 +1,25 @@
 pipeline {
     agent any
 
+    parameters {
+        string(defaultValue: "", description: 'The browser to use for Selenium tests', name: 'BrowserPath')
+    }
+
     stages {
-        stage('clone project') {
+        stage('Test') {
             steps {
-                git url: 'https://github.com/roskee/sample-testing-java.git',
-                    branch: 'main'
+                // Get some code from a GitHub repository
+                git branch: 'test',
+                    url: 'https://github.com/roskee/sample-testing-java.git'
+
+                // Run maven test
+                bat "mvn test -DBrowserPath=${params.BrowserPath}"
             }
-        }
-        stage('test') {
-            steps {
-                bat 'dir'
-                // sh 'ls'
-                echo 'I am testing'
-            }
-        }
-        stage('build') {
-            steps {
-                echo 'I am building'
-            }
-        }
-        stage('deploy') {
-            steps {
-                echo 'I am deploying'
+
+            post {
+                success {
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                }
             }
         }
     }
