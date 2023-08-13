@@ -5,18 +5,24 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.Select;
 
 public class LoginTest {
     WebDriver driver;
+
     @Before
     public void setupDriver() {
-        EdgeOptions edgeOptions = new EdgeOptions();
-        edgeOptions.addArguments("--headless");
-        System.setProperty("webdriver.edge.driver", "msedgedriver.exe");
-        driver = new EdgeDriver(edgeOptions);
+        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--headless");
+        chromeOptions.setBinary(System.getProperty("BrowserPath"));
+        driver = new ChromeDriver(chromeOptions);
         driver.get("https://www.saucedemo.com/");
     }
 
@@ -33,8 +39,9 @@ public class LoginTest {
         loginButton.click();
         Assert.assertEquals("https://www.saucedemo.com/inventory.html", driver.getCurrentUrl());
     }
+
     @Test
-        public void cartCheckout() {
+    public void cartCheckout() {
         login();
 
         WebElement addToCartButton = driver.findElement(By.id("add-to-cart-sauce-labs-backpack"));
@@ -50,10 +57,10 @@ public class LoginTest {
         Assert.assertEquals("https://www.saucedemo.com/cart.html", driver.getCurrentUrl());
 
         WebElement backPackItem = driver.findElement(By.className("inventory_item_name"));
-        Assert.assertEquals("Sauce Labs Backpack",backPackItem.getText());
+        Assert.assertEquals("Sauce Labs Backpack", backPackItem.getText());
 
         WebElement backPackPrice = driver.findElement(By.className("inventory_item_price"));
-        Assert.assertEquals("$29.99",backPackPrice.getText());
+        Assert.assertEquals("$29.99", backPackPrice.getText());
     }
 
     @Test
