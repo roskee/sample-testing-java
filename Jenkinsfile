@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                // Get some code from a GitHub repository
+                // Get code from GitHub
                 git branch: 'test',
                     url: 'https://github.com/roskee/sample-testing-java.git'
 
